@@ -18,8 +18,8 @@ RUN chown www-data:www-data -R /var/www/html
 
 WORKDIR /var/www/html
 
-ENV DVWA_DIFFICULTY=medium
-ENV RECAPTCHA_KEY
+ENV DVWA_DIFFICULTY medium
+ENV RECAPTCHA_KEY ""
 
 EXPOSE 80
 
