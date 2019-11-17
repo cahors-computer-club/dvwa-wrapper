@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to the registry
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p'${{ secrets.DOCKER_PASSWORD }}'
+    - name: Build the Docker image
+      run: docker build docker-dvwa --file Dockerfile -t opussolutions/dvwa
+    - name: Push Docker Image
+      run: |
+        docker tag opussolutions/dvwa opussolutions/dvwa:latest
+        docker push opussolutions/dvwa:latest
+      shell: bash
+    

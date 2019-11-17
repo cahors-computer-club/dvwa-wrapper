@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    networks:
+      - tier
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd
+      MYSQL_DATABASE: dvwa
+      MYSQL_USER: dvwa
+      MYSQL_PASSWORD: dvwap@ss
+
+  dvwa:
+    build: docker-dvwa
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - tier
+    environment:
+      DB_HOST: db
+      DB_USER: dvwa
+      DB_NAME: dvwa
+      DB_PASSWORD: dvwap@ss
+      #RECAPTCHA_KEY: somekey
+      #DVWA_DIFFICULTY: medium
+    
+networks:
+  tier:
