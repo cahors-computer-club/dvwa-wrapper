@@ -15,7 +15,8 @@ jobs:
     - name: Login to the registry
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p'${{ secrets.DOCKER_PASSWORD }}'
     - name: Build the Docker image
-      run: docker build docker-dvwa --file Dockerfile -t opussolutions/dvwa
+      run: docker build . -t opussolutions/dvwa
+      working-directory: ./docker-dvwa
     - name: Push Docker Image
       run: |
         docker tag opussolutions/dvwa opussolutions/dvwa:latest
